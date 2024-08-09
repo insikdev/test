@@ -57,6 +57,6 @@ spec:
         stage('Build & Tag & Push Docker Image') {
             steps {
                 container('kaniko') {
-                    sh 'executor --context=dir://$WORKSPACE --destination=jenkins_test:$BUILD_NUMBER --destination=jenkins_test:latest'
+                    sh 'executor --context=dir://$WORKSPACE --destination=insikdev/jenkins_test:$BUILD_NUMBER --destination=insikdev/jenkins_test:latest'
         }       }     }
   } }
