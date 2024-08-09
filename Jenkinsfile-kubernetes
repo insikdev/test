@@ -13,14 +13,19 @@ pipeline {
             args:
             - infinity
           - name: kaniko
-            image: gcr.io/kaniko-project/executor:debug             command:
+            image: gcr.io/kaniko-project/executor:debug
+            command:
             - sleep
             args:
             - infinity
             volumeMounts:
-            - name: registry-credentials               mountPath: /kaniko/.docker           volumes:
-          - name: registry-credentials             secret:
-              secretName: docker-hub-credential               items:
+            - name: registry-credentials
+              mountPath: /kaniko/.docker
+              volumes:
+          - name: registry-credentials
+            secret:
+              secretName: docker-hub-credential
+              items:
               - key: .dockerconfigjson
                 path: config.json
         '''
