@@ -2,20 +2,20 @@ pipeline {
   agent any
 
   triggers {
-    pollSCM('* * * * *')  
+    pollSCM('* * * * *')
   }
 
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', 
+        git branch: 'main',
         url: 'https://github.com/insikdev/test'
       }
     }
 
     stage('Build') {
       steps {
-        sh 'mvn package'
+        sh 'mvn clean package -DskipTest'
       }
     }
 
@@ -28,11 +28,11 @@ pipeline {
     stage('Deploy') {
       steps {
         deploy adapters: [
-            tomcat9(credentialsId: 'tomcat-manager', url: 'http://192.168.56.102:8080/')
-          ], 
-          contextPath: null, 
+          tomcat9(credentialsId: 'tomcat-manager', url: 'http://192.168.56.102:8080/')
+        ],
+          contextPath: null,
           war: 'target/hello-world.war'
-          }     
-      }   
+      }
+    }
   }
 }
